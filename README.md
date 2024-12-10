@@ -10,14 +10,13 @@
 
 We will prototype and test the Iceberg Merge Into and Incremental Read Operations.
 
+# Instructions
+
 ## 1. Test jobs in CDE Session from local
 
-Interactively Test the Application. Navigate to the CDE Home Page and launch a PySpark Session. Leave default settings intact.
+Start a CDE Session of type Spark Connect. Then, run "prototype.py".
 
-Copy the following cell into the notebook. Before running it, ensure that you have edited the "username" variable with your assigned user.
-
-
-### Instructions
+![alt text](img/cde_spark_connect_vscode.png)
 
 On your terminal run the following commands:
 
