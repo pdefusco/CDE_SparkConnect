@@ -67,23 +67,18 @@ cde repository sync --name sparkAppRepoDev \
 ## 4. Deploy using CLI
 
 ```
-cde job create --name cde_spark_job_test \
+cde job create --name cde_spark_iceberg_job_test \
   --type spark \
   --mount-1-resource sparkAppRepoDev \
   --executor-cores 2 \
   --executor-memory "4g" \
-  --application-file code/pyspark_example/pyspark-app.py\
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --application-file pyspark-app.py\
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
-cde job run --name cde_spark_job_test \
+cde job run --name cde_spark_iceberg_job_test \
   --executor-cores 4 \
   --executor-memory "2g" \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde job run --name cde_spark_job_test \
-  --executor-cores 2 \
-  --executor-memory "4g" \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 ```
 
 ## 5. Monitor
@@ -93,22 +88,22 @@ Navigate to the Job Runs UI / run a few CDE CLI commands to check status.
 ```
 # List all Jobs in the Virtual Cluster:
 cde job list \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 # List all jobs in the Virtual Cluster whose name is "cde_spark_job_test":
 cde job list \
-  --filter 'name[eq]cde_spark_job_test' \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --filter 'name[eq]cde_spark_iceberg_job_test' \
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
-# List all jobs in the Virtual Cluster whose job application file name equals "code/pyspark_example/pyspark-app.py":
+# List all jobs in the Virtual Cluster whose job application file name equals "pyspark-app.py":
 cde job list \
-  --filter 'spark.file[eq]code/pyspark_example/pyspark-app.py' \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --filter 'spark.file[eq]pyspark-app.py' \
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 # List all runs for Job "cde_spark_job_test":
 cde run list \
-  --filter 'job[eq]cde_spark_job_test' \
-  --vcluster-endpoint https://898n992w.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --filter 'job[eq]cde_spark_iceberg_job_test' \
+  --vcluster-endpoint https://4spcd2c8.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 ```
 
 ## 6. Promote to higher env using API by replicating repo and redeploy
@@ -120,91 +115,47 @@ Create and sync the same Git repo from the PRD Cluster:
 ```
 cde job delete \
   --name cde_spark_job_prd \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 cde repository delete \
   --name sparkAppRepoPrd \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 cde repository create --name sparkAppRepoPrd \
   --branch main \
-  --url https://github.com/pdefusco/CDE_CICD_Articles.git \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --url https://github.com/pdefusco/CDE_SparkConnect.git \
+  --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 cde repository sync --name sparkAppRepoPrd \
- --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+ --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 cde job create --name cde_spark_job_prd \
   --type spark \
   --mount-1-resource sparkAppRepoPrd \
   --executor-cores 2 \
   --executor-memory "4g" \
-  --application-file code/pyspark_example/pyspark-app.py\
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --application-file pyspark-app.py\
+  --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 
 cde job run --name cde_spark_job_prd \
   --executor-cores 4 \
   --executor-memory "2g" \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+  --vcluster-endpoint https://762hjztc.cde-ntvvr5hx.go01-dem.ylcu-atmi.cloudera.site/dex/api/v1
 ```
 
-## 7. Build Orchestration Pipeline with Airflow
+## Summary and Next Steps
 
-```
-cde job delete \
-  --name airflow-orchestration \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+A Spark Connect Session is a type of CDE Session that exposes the Spark Connect interface. A Spark Connect Session allows you to connect to Spark from any remote Python environment.
 
-cde job delete \
-  --name cde_spark_job_gold \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+Spark Connect allows you to connect remotely to the Spark clusters. Spark Connect is an API that uses the DataFrame API and unresolved logical plans as the protocol.
 
-cde job delete \
-  --name cde_spark_job_silver \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
+In this article we reviewed an end to end developer framework using Spark Connect, the CDE CLI, and Apache Iceberg. You might also find the following articles and demos relevant:
 
-cde job delete \
-  --name cde_spark_job_bronze \
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde repository sync --name sparkAppRepoPrd \
- --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde job create --name cde_spark_job_bronze \
-  --type spark \
-  --arg pauldefusco \
-  --arg s3a://paul-aug26-buk-a3c2b50a/data/spark3_demo/pdefusco/icedemo \
-  --mount-1-resource sparkAppRepoPrd \
-  --python-env-resource-name Python-Env-Shared \
-  --executor-cores 2 \
-  --executor-memory "4g" \
-  --application-file code/pyspark_example/airflow_pipeline/001_Lakehouse_Bronze.py\
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde job create --name cde_spark_job_silver \
-  --type spark \
-  --arg pauldefusco \
-  --mount-1-resource sparkAppRepoPrd \
-  --python-env-resource-name Python-Env-Shared \
-  --executor-cores 2 \
-  --executor-memory "4g" \
-  --application-file code/pyspark_example/airflow_pipeline/002_Lakehouse_Silver.py\
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde job create --name cde_spark_job_gold \
-  --type spark \
-  --arg pauldefusco \
-  --arg s3a://paul-aug26-buk-a3c2b50a/spark3_demo/data/pdefusco \
-  --mount-1-resource sparkAppRepoPrd \
-  --python-env-resource-name Python-Env-Shared \
-  --executor-cores 2 \
-  --executor-memory "4g" \
-  --application-file code/pyspark_example/airflow_pipeline/003_Lakehouse_Gold.py\
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-
-cde job create --name airflow-orchestration \
-  --type airflow \
-  --mount-1-resource sparkAppRepoPrd \
-  --dag-file code/pyspark_example/airflow_pipeline/004_airflow_dag_git.py\
-  --vcluster-endpoint https://vtr4tm46.cde-vwkzdqwc.paul-aug.a465-9q4k.cloudera.site/dex/api/v1
-```
+* [Installing the CDE CLI](https://docs.cloudera.com/data-engineering/cloud/cli-access/topics/cde-cli.html)
+* [Simple Introduction to the CDE CLI](https://github.com/pdefusco/CDE_CLI_Simple)
+* [CDE Concepts](https://docs.cloudera.com/data-engineering/cloud/cli-access/topics/cde-cli-concepts.html)
+* [CDE CLI Command Reference](https://docs.cloudera.com/data-engineering/cloud/cli-access/topics/cde-cli-reference.html)
+* [CDE Spark Connect](https://docs.cloudera.com/data-engineering/cloud/spark-connect-sessions/topics/cde-spark-connect-session.html)
+* [CDE Jobs API Reference](https://docs.cloudera.com/data-engineering/cloud/jobs-rest-api-reference/index.html)
+* [Using Apache Iceberg in CDE](https://docs.cloudera.com/data-engineering/cloud/manage-jobs/topics/cde-using-iceberg.html)
+* [How to Create an Apache Iceberg Table in CDE](https://community.cloudera.com/t5/Community-Articles/How-to-Create-an-Iceberg-Table-with-PySpark-in-Cloudera-Data/ta-p/394800)
