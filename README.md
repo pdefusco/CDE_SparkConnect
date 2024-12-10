@@ -6,7 +6,6 @@
 4. Deploy using CLI
 5. Monitor
 6. Promote to higher env using API by replicating repo and redeploy
-7. Deploy Airflow Orchestration Pipeline
 
 We will prototype and test the Iceberg Merge Into and Incremental Read Operations.
 
