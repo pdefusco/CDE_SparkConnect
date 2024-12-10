@@ -1,11 +1,11 @@
 # CDE Spark Connect
 
-1. Test jobs with Spark Connect from local.  
-2. Once ready for operationalization push to git.
-3. Sync with CDE repository
-4. Deploy using CLI
-5. Monitor
-6. Promote to higher env using API by replicating repo and redeploy
+1. [Test jobs with Spark Connect from local](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#1-test-jobs-in-cde-session-from-local).  
+2. [Once ready for operationalization push to git](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#2-push-to-git).
+3. [Sync with CDE repository](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#3-sync-with-cde-repository)
+4. [Deploy using CLI](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#4-deploy-using-cli)
+5. [Monitor](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#5-monitor)
+6. [Promote to higher env using API by replicating repo and redeploy](https://github.com/pdefusco/CDE_SparkConnect?tab=readme-ov-file#6-promote-to-higher-env-using-api-by-replicating-repo-and-redeploy)
 
 We will prototype and test the Iceberg Merge Into and Incremental Read Operations.
 
