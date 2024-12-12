@@ -43,7 +43,7 @@ import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
 from cde import CDESparkConnectSession
-spark = CDESparkConnectSession.builder.sessionName('spark-connect-paul').get()
+spark = CDESparkConnectSession.builder.sessionName('demosession-spark').get()
 
 storageLocation = "s3a://go01-demo/data"
 username = "user001"
@@ -89,6 +89,7 @@ snapshots_df = spark.sql("SELECT * FROM spark_catalog.HOL_DB_{0}.TRANSACTIONS_{0
 last_snapshot = snapshots_df.select("snapshot_id").tail(1)[0][0]
 second_snapshot = snapshots_df.select("snapshot_id").collect()[1][0]
 
+#this is incremental read!!
 incReadDf = spark.read\
     .format("iceberg")\
     .option("start-snapshot-id", second_snapshot)\
